@@ -63,3 +63,62 @@ def kor2number(kor_str):
 
     total += tmp + num
     return str(total)
+
+def number2kor(num):
+    kor_num_map = {
+        0: '영',
+        1: '일',
+        2: '이',
+        3: '삼',
+        4: '사',
+        5: '오',
+        6: '육',
+        7: '칠',
+        8: '팔',
+        9: '구'
+    }
+    
+    kor_unit_map = {
+        10: '십',
+        100: '백',
+        1000: '천',
+        10000: '만',
+        100000000: '억',
+        1000000000000: '조',
+        10000000000000000: '경',
+        100000000000000000000: '해'
+    }
+    
+    if num == 0:
+        return kor_num_map[0]
+    
+    result = []
+    unit_keys = sorted(kor_unit_map.keys(), reverse=True)
+    
+    for unit in unit_keys:
+        if num >= unit:
+            count = num // unit
+            num %= unit
+            if count > 0:
+                if unit >= 10000 and count == 1 and len(result) > 0:
+                    result.append(kor_unit_map[unit])
+                else:
+                    result.append(kor_num_map[count])
+                    result.append(kor_unit_map[unit])
+    
+    if num > 0:
+        result.append(kor_num_map[num])
+    
+    return ''.join(result)
+
+# 예시입력 : '123456789'
+# 예시출력 : '일억 이천삼백사십오만 육천칠백팔십구'
+
+if __name__ == "__main__":
+    kor_input = '일억 이천삼백사십오만 육천칠백팔십구'
+    number_output = kor2number(kor_input)
+    print(f"'{kor_input}' -> '{number_output}'")
+    
+    number_input = '123456789'
+    kor_output = number2kor(int(number_input))
+    print(f"'{number_input}' -> '{kor_output}'")

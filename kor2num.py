@@ -1,7 +1,7 @@
 # 공통 상수
 KOR_NUM_MAP = ['영', '일', '이', '삼', '사', '오', '육', '칠', '팔', '구']
 KOR_UNIT_MAP1 = ['', '십', '백', '천']
-KOR_UNIT_MAP2 = ['', '만', '억', '조', '경', '해']
+KOR_UNIT_MAP2 = ['', '만', '억', '조', '경', '해', '자', '양', '구', '간', '정', '재', '극', '항하사', '아승기', '나유타', '불가사의', '무량대수']
 
 # 공통 유틸: 4자리씩 분할
 def split_by_4(num):
@@ -16,6 +16,8 @@ def kor2num(kor_str):
     num = 0
     i = 0
     length = len(kor_str)
+    # 큰 단위부터 내려가면서 매칭
+    unit_candidates = sorted(KOR_UNIT_MAP2, key=lambda x: -len(x))
     while i < length:
         char = kor_str[i]
         if char in KOR_NUM_MAP:
@@ -28,17 +30,22 @@ def kor2num(kor_str):
             section += num * unit
             num = 0
             i += 1
-        elif char in KOR_UNIT_MAP2:
-            unit = 10 ** (4 * KOR_UNIT_MAP2.index(char))
-            if num == 0 and section == 0:
-                section = 1
-            section_total = section + num
-            total += section_total * unit
-            section = 0
-            num = 0
-            i += 1
         else:
-            i += 1
+            matched = False
+            for unit_str in unit_candidates:
+                if unit_str and kor_str.startswith(unit_str, i):
+                    unit = 10 ** (4 * KOR_UNIT_MAP2.index(unit_str))
+                    if num == 0 and section == 0:
+                        section = 1
+                    section_total = section + num
+                    total += section_total * unit
+                    section = 0
+                    num = 0
+                    i += len(unit_str)
+                    matched = True
+                    break
+            if not matched:
+                i += 1
     total += section + num
     return total
 

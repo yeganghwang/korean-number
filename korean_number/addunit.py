@@ -1,4 +1,4 @@
-from kor_utils import *
+from .kor_utils import *
 
 def addunit(num):
     parts = split_by_4(num)

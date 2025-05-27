@@ -1,4 +1,4 @@
-from kor_utils import *
+from .kor_utils import *
 
 def num2kor(num):
     if num == 0:

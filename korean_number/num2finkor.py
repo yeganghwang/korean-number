@@ -1,4 +1,4 @@
-from kor_utils import *
+from .kor_utils import *
 
 def num2finkor(num):
     if num == 0:

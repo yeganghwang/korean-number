@@ -1,4 +1,4 @@
-from kor_utils import *
+from .kor_utils import *
 
 def kor2num(kor_str):
     kor_str = kor_str.replace(' ', '')

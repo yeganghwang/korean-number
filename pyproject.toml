@@ -1,6 +1,6 @@
 [project]
 name = "korean_number"
-version = "1.0.1"
+version = "1.0.2"
 description = "숫자와 한글 숫자 변환 파이썬 패키지"
 authors = [{name="yegang hwang", email="yegang@yegangs.com"}]
 readme = "README.md"

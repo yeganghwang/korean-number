@@ -1,4 +1,4 @@
-# korean-number
+# korean_number
 
 한국어 숫자 ↔ 숫자 변환 및 금융 표기 지원 Python 유틸리티
 
